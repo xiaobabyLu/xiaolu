@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.xiaolu.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.example.xiaolu.model.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="INTEGER" />
+    <result column="city_id" property="cityId" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date, city_id, city_name, user_id, user_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from test_user_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from test_user_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.xiaolu.model.User" >
+    insert into test_user_info (id, create_date, city_id, 
+      city_name, user_id, user_name
+      )
+    values (#{id,jdbcType=BIGINT}, #{createDate,jdbcType=INTEGER}, #{cityId,jdbcType=VARCHAR}, 
+      #{cityName,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.xiaolu.model.User" >
+    insert into test_user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.xiaolu.model.User" >
+    update test_user_info
+    <set >
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.xiaolu.model.User" >
+    update test_user_info
+    set create_date = #{createDate,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
